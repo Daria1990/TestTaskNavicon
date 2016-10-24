@@ -1,0 +1,46 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<TestTask_Navicon.Models.Contact>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "ContactList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    AjaxOptions ajaxOpt = new AjaxOptions
+    {
+        UpdateTargetId = "tableBody",
+        Url = Url.Action("GetContacts")
+    };
+}
+
+@Html.ActionLink("Add new Item", "CreateContact")
+
+@if (Model != null && Model.Count > 0)
+{
+    using (Ajax.BeginForm("ListAjax", ajaxOpt))
+    {
+        <table>
+            <thead>
+                <tr>
+                <th></th>
+                <th>@Ajax.ActionLink("Name", "ListAjax", new { selectedField = "Name", page = ViewBag.page }, ajaxOpt)</th>
+                <th>@Ajax.ActionLink("Surname", "ListAjax", new { selectedField = "Surname", page = ViewBag.page }, ajaxOpt)</th>
+                <th>@Ajax.ActionLink("Patronymic", "ListAjax", new { selectedField = "Patronymic", page = ViewBag.page }, ajaxOpt)</th>
+                <th>@Ajax.ActionLink("DateOfBirth", "ListAjax", new { selectedField = "DateOfBirth", page = ViewBag.page }, ajaxOpt)</th>
+                <th>@Ajax.ActionLink("Age", "ListAjax", new { selectedField = "Age", page = ViewBag.page }, ajaxOpt)</th>
+                <th>@Ajax.ActionLink("Sex", "ListAjax", new { selectedField = "Sex", page = ViewBag.page }, ajaxOpt)</th>
+                <th></th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                @Html.Partial("ContactGrid", Model)
+            </tbody>
+        </table>
+        <input type="submit" value="Delete" />
+    }
+    @Html.PagedListPager(Model, page => Url.Action("ListAjax", new { page, selectedField = ViewBag.selectedField }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(ajaxOpt))
+}
+else
+{
+    <p>You have 0 items</p>
+}   

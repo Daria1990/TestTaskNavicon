@@ -1,0 +1,57 @@
+﻿@model TestTask_Navicon.Models.Contact
+@{
+    ViewBag.Title = "EditContact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("EditContact", "Contact"))
+{
+    @Html.HiddenFor(m => m.ContactId)
+    @Html.ValidationSummary(true)
+    <div>
+        <p>@Html.ValidationMessageFor(m => m.Name)</p>
+        <p>
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name)
+        </p>
+        
+    </div>
+    <div>
+        <p>@Html.ValidationMessageFor(m => m.Surname)</p>
+        <p>
+            @Html.LabelFor(m => m.Surname)
+            @Html.TextBoxFor(m => m.Surname)
+        </p>
+    </div>
+    <div>
+        <p>@Html.ValidationMessageFor(m => m.Patronymic)</p>
+        <p>
+            @Html.LabelFor(m => m.Patronymic)
+            @Html.TextBoxFor(m => m.Patronymic)
+        </p>
+    </div>
+    <div>
+        <p>@Html.ValidationMessageFor(m => m.DateOfBirth)</p>
+        <p>
+            @Html.LabelFor(m => m.DateOfBirth)
+            @Html.EditorFor(m => m.DateOfBirth)
+        </p>
+    </div>
+    <div>
+        <p>@Html.ValidationMessageFor(m => m.Age)</p>
+        <p>
+            @Html.LabelFor(m => m.Age)
+            @Html.EditorFor(m => m.Age)
+        </p>
+    </div>
+    <div>
+        <p>@Html.ValidationMessageFor(m => m.Sex)</p>
+        <p>
+            @Html.LabelFor(m => m.Sex)
+            @Html.EnumDropDownListFor(m => m.Sex)
+        </p>
+    </div>
+    <input type="submit" value="Save" />
+    @Html.ActionLink("Cancel", "ListAjax")
+}
+

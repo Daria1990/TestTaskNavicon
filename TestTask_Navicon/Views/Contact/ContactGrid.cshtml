@@ -1,0 +1,19 @@
+﻿@model PagedList.IPagedList<TestTask_Navicon.Models.Contact>
+@using System;
+
+@foreach (var contact in Model)
+{
+    <tr>
+        <td><input type="checkbox" name="selectedContacts[]" value="@contact.ContactId" id="@contact.ContactId" /></td>
+        <td>@contact.Name</td>
+        <td>@contact.Surname</td>
+        <td>@contact.Patronymic</td>
+        <td>@contact.DateOfBirth</td>
+        <td>@contact.Age</td>
+        <td>@contact.Sex</td>
+        <td>@Html.ActionLink("Edit", "EditContact", new { contact.ContactId })</td>
+    </tr>
+}
+
+
+
